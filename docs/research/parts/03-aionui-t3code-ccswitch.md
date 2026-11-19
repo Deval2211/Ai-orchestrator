@@ -1,3 +1,5 @@
+> **Historical multi-project research.** The T3 Code section is superseded by the current commit-pinned analysis in [`../13_T3_CODE_ORCHESTRATION.md`](../13_T3_CODE_ORCHESTRATION.md), which corrects the older account-isolation and diff/PR findings. AionUi and CC Switch sections remain dated research and require fresh source verification.
+
 # AionUi
 
 ## Repo facts

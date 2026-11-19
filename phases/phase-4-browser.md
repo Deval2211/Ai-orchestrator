@@ -1,33 +1,48 @@
 # Phase 4: Browser
 
+**Status:** planned later phase; implementation not started
+
 ## Goal
-Manage Chrome profiles and connect to browser-based AI services.
 
-## Work Items
+Support one sanctioned browser-based AI workflow through a dedicated manually authenticated Chrome profile, without CAPTCHA bypass, credential extraction or quota evasion.
 
-### 4.1 Chrome Profile Management
-- [ ] Create isolated Chrome profiles on disk
-- [ ] Launch Chrome with `--remote-debugging-port` per profile
-- [ ] Manage profile lifecycle (start/stop/cleanup)
+## Work items
 
-### 4.2 CDP Connection
-- [ ] Connect to Chrome via CDP (Playwright / raw CDP)
-- [ ] Maintain session while Chrome runs
-- [ ] Handle disconnection/reconnection
+### 4.1 Profile management
 
-### 4.3 Browser AI Adapters
-- [ ] NVIDIA Build playground adapter (proven working)
-- [ ] Generic authenticated web AI adapter pattern
-- [ ] Handle CAPTCHA / verification flows
+- [ ] Register dedicated profile paths and permitted services.
+- [ ] Launch/connect through Hermes browser/CDP tooling or a supported automation framework.
+- [ ] Track process/profile ownership and clean up only owned resources.
+- [ ] Represent authentication as observed state: unknown, authenticated, expired or manual action required.
 
-### 4.4 Session Persistence
-- [ ] Save/restore browser session state
-- [ ] Cookie/session isolation per profile
+### 4.2 Browser adapter
+
+- [ ] Implement side-effect-free status checks and explicit connection/reconnection behavior.
+- [ ] Validate service eligibility, automation terms, privacy and data destination before planning.
+- [ ] Emit normalized browser/action/result/error events and bounded redacted artifacts.
+- [ ] Pause for manual login or verification; never auto-solve CAPTCHA or anti-bot challenges.
+- [ ] Prefer an official API whenever it supplies equivalent capability.
+
+### 4.3 Session and privacy handling
+
+- [ ] Keep cookies/tokens inside the provider-owned profile; never copy them into registry, plans, logs or context bundles.
+- [ ] Use one dedicated process/profile per account and prevent accidental profile sharing.
+- [ ] Revalidate authentication and permitted action scope before each execution.
+- [ ] Record exactly what external action occurred and verify the destination/result.
 
 ## Deliverable
-- Orchestrator can drive the NVIDIA Build playground programmatically.
-- Can run a prompt through Kimi K3.1 Pro in the browser and capture output.
 
-## Verification
-- [ ] Prompt sent, response captured
-- [ ] Output matches manual playground result
+From Hermes, run one approved prompt/workflow through a permitted browser-AI service and retrieve the result and execution evidence. A service that requires manual verification pauses cleanly for the user.
+
+## Acceptance criteria
+
+- [ ] A dedicated profile completes one real, permitted workflow.
+- [ ] Another profile cannot observe its authenticated state or cookies.
+- [ ] Login/CAPTCHA produces `authentication_required`, not an evasion attempt.
+- [ ] Browser artifacts contain no cookies, tokens or unauthorized page data.
+- [ ] Disconnect/reconnect does not duplicate a consequential action.
+- [ ] An equivalent official API, when available, is selected instead of the browser path.
+
+## Explicitly prohibited
+
+CAPTCHA solving, anti-bot evasion, cookie/OAuth extraction, unauthorized consumer-web bridging, and account rotation to defeat quotas.

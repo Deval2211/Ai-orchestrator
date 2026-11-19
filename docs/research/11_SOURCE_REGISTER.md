@@ -1,5 +1,7 @@
 # 11 — Source Register
 
+> **Historical register with later corrections.** Entries and environment facts were checked on 2026-11-09 unless marked otherwise. For current T3 evidence see [`13_T3_CODE_ORCHESTRATION.md`](13_T3_CODE_ORCHESTRATION.md); for current resource evidence see [`14_FREE_RESOURCE_PRIMARY_SOURCE_REVIEW.md`](14_FREE_RESOURCE_PRIMARY_SOURCE_REVIEW.md) and the condensed [`../../specs/resource-catalog.md`](../../specs/resource-catalog.md). FreeLLMAPI was inactive when checked on 2026-11-19.
+
 Every project examined during this research. Star counts, languages and SPDX licenses come from
 the GitHub REST API (`https://api.github.com/repos/<owner>/<repo>` and its `/license` endpoint)
 queried during the research window; where a query was rate-limited, the row says so explicitly

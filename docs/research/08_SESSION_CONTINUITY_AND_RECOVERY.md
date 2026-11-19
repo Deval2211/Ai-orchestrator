@@ -1,5 +1,7 @@
 # 08 — Session Continuity and Recovery
 
+> **Historical research (2026-11-09).** Retained for context, not canonical architecture. Current requirements and [`../../specs/session-continuity.md`](../../specs/session-continuity.md) take precedence. Blind replay after uncertain mutation is not permitted. See [`../README.md`](../README.md).
+
 **Date:** 2026-11-09 · **Status:** proposal, awaiting approval.
 
 ---

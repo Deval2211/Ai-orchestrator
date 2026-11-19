@@ -1,5 +1,7 @@
 # 06 — Technology Stack and Dependencies
 
+> **Historical research (2026-11-09).** Retained for context, not canonical architecture. Current requirements and [`../../specs/design_draft.md`](../../specs/design_draft.md) take precedence. Dependency choices and provider claims require fresh verification. See [`../README.md`](../README.md).
+
 **Date:** 2026-11-09 · **Status:** proposal, awaiting approval.
 
 ---

@@ -1,87 +1,115 @@
 # AI Orchestrator
 
-An intelligent, extensible AI resource orchestration engine that turns **Hermes** into a unified control center for LLMs, coding agents, CLI accounts, and browser-based AI services — with intelligent task allocation and complete session continuity.
+An intelligent, extensible resource-orchestration engine that turns **Hermes** into a unified control center for LLM APIs and gateways, coding agents and CLI accounts, local model servers, and sanctioned browser-based AI services—with task-based allocation and complete execution continuity.
 
-> **Status:** Specification phase. No code written yet. Read-only access to Hermes and the codebase only.
-> **Location:** `/home/deval/Projects/ai-orchestrator/`
-> **Related analysis:** `/home/deval/Projects/multi-account-cli-isolation-analysis.md`
+> **Status:** documentation and design-review phase. No orchestrator implementation has been written.
+> **Project path:** `/home/deval/Project/Ai-orchestrator`
+> **Start here:** [`specs/design_draft.md`](specs/design_draft.md)
+> **Documentation index:** [`docs/README.md`](docs/README.md)
 
----
+## Vision
 
-## What This Project Is
-
-You do **not** want another conversational AI app. You want an orchestration *engine* that sits behind Hermes:
-
+```text
+You
+  → Hermes: primary conversation, memory, skills, tools, approvals, Kanban
+    → AI Orchestrator: resource intelligence + execution coordination
+      → LLM APIs/gateways | coding CLIs | local model servers | browser AI | MCP
 ```
-You → Hermes (primary interface) → AI Orchestrator (intelligence + resource management) → LLMs / CLIs / Browser AI
-```
 
-Hermes keeps its conversations, memory, skills, and session history intact. The Orchestrator is the intelligence and resource-management layer underneath.
+Hermes remains primary. The orchestrator does not replace its interface, memory, skills, sessions, or native skill-creation process.
 
-## One-Line Definition
+## Core principles
 
-> An intelligent, extensible AI resource orchestration engine that turns Hermes into a unified control center for LLMs, coding agents, CLI accounts, and browser-based AI services, with intelligent task allocation and complete session continuity.
+1. **Smallest capable resource, not merely cheapest.** Capability, confidentiality and safety are hard constraints.
+2. **Hermes stays primary.** Use MCP, Kanban and supported integration surfaces; never write directly to Hermes `state.db`.
+3. **Unified resource pool.** Every provider instance/account has explicit authentication, privacy, capabilities, limits and observed health.
+4. **Continuity without fiction.** One Hermes conversation can inspect and resume linked executions. Native CLI sessions stay native; cross-resource continuation uses explicit context bundles.
+5. **Local-first control plane.** The orchestrator and its records are local. Cloud inference and optional local model servers are both valid resources.
+6. **Autonomy with evidence.** Bounded retries/fallback/escalation, approval for consequential actions, isolated accounts/workspaces, recovery and verification before completion.
+7. **No static free-tier mythology.** Model availability, limits and privacy terms are refreshed and dated.
 
-## Core Principles
+## Proposed architecture
 
-1. **Smallest capable resource, not cheapest available.** Simple classification → small model; complex planning → strong reasoning model; large dev task → coding CLI.
-2. **Hermes stays primary.** Preserve Hermes skills, memory, sessions, interface, and native skill-creation process. Extend, don't replace.
-3. **Unified resource pool.** Every LLM API, local model, coding CLI, CLI account, browser profile, and browser AI service is one registered resource with its own auth, limits, and state.
-4. **Session continuity is non-negotiable.** Everything stays accessible from the same Hermes conversation. CLIs keep their private sessions; Hermes keeps the unified task history and structured context.
-5. **Autonomy with safety.** Auto-assignment, auto-retry, auto-escalation — but approval for risky actions, isolated accounts/profiles, checkpoints, and verification before "done."
+| Layer | Responsibility |
+|---|---|
+| Hermes | Conversation, memory, skills, approvals, native tools, durable task/review workflows |
+| MCP + Kanban lane | Interactive and long-running orchestration surfaces |
+| System 1 Router | Requirement extraction, policy/capability filters, smallest-capable selection and escalation |
+| Registry | Resources, independent accounts, capabilities, privacy, catalog metadata and health |
+| Execution coordinator | Adapters, normalized events, idempotency, artifacts, cancellation and resource checkpoints |
+| Continuity layer | Hermes correlation, native resume, context bundles, handoff and recovery |
+| Optional FreeLLMAPI adapter | Model-axis discovery/inference/fallback when restored and verified—not a second orchestrator |
 
-## Folder Layout
+The recommended initial stack is Python 3.12+, SQLite, native MCP, a small Kanban lane, and thin provider adapters. T3 Code is used as a source-inspected reference for adapter, event, account-isolation and recovery patterns, not as the runtime.
 
-```
-ai-orchestrator/
+## Documentation map
+
+### Canonical design
+
+- [Complete design draft](specs/design_draft.md)
+- [Architecture](specs/architecture.md)
+- [System 1 Router](specs/system-1-router.md)
+- [Resource Registry](specs/resource-registry.md)
+- [Execution and Adapters](specs/execution-and-adapters.md)
+- [Session Continuity](specs/session-continuity.md)
+- [Autonomy and Safety](specs/autonomy-and-safety.md)
+- [Candidate Resource Catalog](specs/resource-catalog.md)
+
+### Decisions and delivery
+
+- [Approved requirements and proposed choices](references/decisions.md)
+- [Open questions](references/open-questions.md)
+- [Documentation status and research guide](docs/README.md)
+
+### Implementation phases
+
+| Phase | Outcome |
+|---|---|
+| [1 — Foundation](phases/phase-1-foundation.md) | One Hermes → plan → execute → durable-record vertical slice |
+| [2 — Intelligence](phases/phase-2-intelligence.md) | Explainable System 1 selection and bounded fallback/escalation |
+| [3 — Execution](phases/phase-3-execution.md) | Coding CLI, account isolation, normalized events, Kanban/workspaces |
+| [4 — Browser](phases/phase-4-browser.md) | One sanctioned manually authenticated browser workflow |
+| [5 — Continuity](phases/phase-5-continuity.md) | Native resume, portable handoff, restart recovery and usage views |
+| [6 — Advanced](phases/phase-6-advanced.md) | Parallel agents, evidence-based routing and optional remote workers |
+
+### Research
+
+- [Research brief and requirements](docs/research/01_RESEARCH_BRIEF_AND_REQUIREMENTS.md), [Hermes/current-state audit](docs/research/02_HERMES_AND_CURRENT_STATE_AUDIT.md), and [candidate landscape](docs/research/03_CANDIDATE_LANDSCAPE.md) — reconstructed series foundation; originals were never committed
+- [T3 Code orchestration analysis](docs/research/13_T3_CODE_ORCHESTRATION.md) — commit-pinned, source-inspected on 2026-11-19
+- [Free-resource primary-source review](docs/research/14_FREE_RESOURCE_PRIMARY_SOURCE_REVIEW.md) — detailed verification of 12 coding/inference resources
+- [Source register](docs/research/11_SOURCE_REGISTER.md) — historical register with current updates
+- [`docs/research/`](docs/research/) — earlier research retained for context; read the [status guide](docs/README.md#research-status) before relying on it
+- [`multi-account-cli-isolation-analysis.md`](multi-account-cli-isolation-analysis.md) — earlier account-isolation analysis; verify against current CLI versions
+
+## Repository layout
+
+```text
+Ai-orchestrator/
 ├── README.md
-├── specs/           # Architecture + component design
+├── specs/                 # Canonical proposed system design
+│   ├── design_draft.md
 │   ├── architecture.md
 │   ├── system-1-router.md
 │   ├── resource-registry.md
+│   ├── execution-and-adapters.md
 │   ├── session-continuity.md
 │   ├── autonomy-and-safety.md
-│   └── undecided.md
-├── phases/          # 6-phase implementation plan
-│   ├── phase-1-foundation.md
-│   ├── phase-2-intelligence.md
-│   ├── phase-3-execution.md
-│   ├── phase-4-browser.md
-│   ├── phase-5-continuity.md
-│   └── phase-6-advanced.md
-└── references/      # Decision log + open questions
-    ├── decisions.md
-    └── open-questions.md
+│   ├── resource-catalog.md
+│   └── undecided.md       # Pointer to the consolidated question list
+├── phases/                # Six verified-vertical-slice delivery phases
+├── references/            # Decisions and unresolved questions
+└── docs/
+    ├── README.md          # Documentation and evidence guide
+    └── research/          # Dated source research and historical analysis
 ```
 
-## Phase Summary
+## Current verification notes
 
-| Phase | Name | Goal |
-|-------|------|------|
-| 1 | Foundation | Hermes integration, resource registry, account isolation, unified execution records |
-| 2 | Intelligence | System 1 router, task classification, capability-based model selection |
-| 3 | Execution | API adapters + Kiro, OpenCode, Pi, Cline, Claude Code |
-| 4 | Browser | Chrome profile management + authenticated browser-AI adapters |
-| 5 | Continuity | Session sync, context sharing, checkpoints, recovery |
-| 6 | Advanced | Parallel agents, dynamic escalation, verification, optional remote workers |
+- T3 Code was inspected at commit `a6d2bed55b8ea1b4be27c9c77fdd65e0e7d479d5`; the analysis corrects older claims about account instances and PR support.
+- FreeLLMAPI's service was inactive when checked on 2026-11-19. It remains optional until restored and contract-tested.
+- OpenCode's official catalog showed free-model churn, and a direct DeepSeek free-model smoke test passed. Its ACP bridge was not used for the final research delegation because the bridge smoke test failed.
+- No implementation, provider installation, or production deployment is implied by these documents.
 
-## Undecided Items (to be resolved)
+## Next checkpoint
 
-| Area | Status |
-|------|--------|
-| Hermes as primary interface | **Decided** |
-| Custom orchestration engine | **Decided** |
-| Task-based model allocation | **Decided** |
-| Multiple API accounts | **Decided** |
-| Multiple CLI integrations/accounts | **Decided** |
-| Browser-based AI access | **Decided** |
-| Unified Hermes session history | **Decided** |
-| Preserve Hermes skills | **Decided** |
-| Local-first execution | **Decided** |
-| Remote workers | Future expansion |
-| Exact System 1 model | To decide |
-| Database and storage architecture | To decide |
-| Orchestrator programming language | To decide |
-| Final project name | Not decided |
-
-See [`references/decisions.md`](references/decisions.md) for the decision log and [`references/open-questions.md`](references/open-questions.md) for unresolved items.
+Review [`specs/design_draft.md`](specs/design_draft.md), the proposed choices in [`references/decisions.md`](references/decisions.md), and the open questions in [`references/open-questions.md`](references/open-questions.md). Implementation starts only after design approval.

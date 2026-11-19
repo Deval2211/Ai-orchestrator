@@ -1,5 +1,7 @@
 # 07 — Security and Account Management
 
+> **Historical research (2026-11-09).** Retained for context, not canonical architecture. Current requirements and [`../../specs/autonomy-and-safety.md`](../../specs/autonomy-and-safety.md) take precedence. Browser AI is a later scoped capability, not deleted from the project. See [`../README.md`](../README.md).
+
 **Date:** 2026-11-09 · **Status:** proposal, awaiting approval.
 
 ---

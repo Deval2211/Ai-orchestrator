@@ -1,5 +1,7 @@
 # 12 — Research Gaps and Recommended Solution
 
+> **Historical audit (2026-11-11).** Retained for context, not canonical architecture. Live FreeLLMAPI counts and endpoint behavior are historical: its service was inactive on 2026-11-19. Current requirements and [`../../specs/design_draft.md`](../../specs/design_draft.md) take precedence. See [`../README.md`](../README.md).
+
 **Status:** evidence-based audit of existing research against the live system  
 **Date:** 2026-11-11  
 **Scope:** all 19 research documents in `docs/research/` + `docs/research/parts/` (8 top-level `04`–`11` + 10 in `parts/` + this file), all 6 phase files, all 5 specs, and the live FreeLLMAPI service at `http://127.0.0.1:3001/v1`

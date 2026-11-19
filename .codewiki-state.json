@@ -1,0 +1,9 @@
+{
+  "repo_name": "Ai-orchestrator",
+  "source_path": "/home/deval/Project/Ai-orchestrator",
+  "source_sha": "523533ef9e32048d2d1dd985344ff88c685d66bc",
+  "generated_at": "2026-11-19T09:56:16Z",
+  "generator": "hermes-agent code-wiki and hermes-egm documentation workflows",
+  "modules_documented": [],
+  "documentation_scope": "Canonical design specifications, six-phase roadmap, decision records, T3 source analysis, and dated candidate-resource catalog; no implementation source exists"
+}

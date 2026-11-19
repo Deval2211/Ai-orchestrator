@@ -1,5 +1,7 @@
 # Open Questions and Architectural Decisions
 
+> **Historical research.** Superseded by [`../../references/open-questions.md`](../../references/open-questions.md) and [`../../references/decisions.md`](../../references/decisions.md). This copy is retained only to explain earlier analysis. See [`../README.md`](../README.md).
+
 **Status:** awaiting user decisions. These twelve items gate Phase 1 implementation.
 
 Consolidated from `specs/undecided.md`, `references/open-questions.md`, and `parts/09-spec-audit.md`

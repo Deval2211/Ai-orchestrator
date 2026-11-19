@@ -1,5 +1,7 @@
 # 04 — Build vs Buy vs Integrate
 
+> **Historical research (2026-11-09).** Retained for context, not canonical architecture. Current requirements and [`../../specs/design_draft.md`](../../specs/design_draft.md) take precedence. Live service, provider, model, and CLI claims require fresh verification. See [`../README.md`](../README.md).
+
 For every component in the project: what already exists, what to reuse, integrate, extend, or
 build, and why. Every "reuse" claim is verified against source or official docs.
 

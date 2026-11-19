@@ -1,5 +1,7 @@
 # 05 — Recommended System Architecture
 
+> **Historical research (2026-11-09).** Retained for context, not canonical architecture. Current requirements and [`../../specs/design_draft.md`](../../specs/design_draft.md) take precedence. FreeLLMAPI is optional and was inactive when checked on 2026-11-19. See [`../README.md`](../README.md).
+
 **Status:** research-backed proposal, awaiting approval. Nothing here is implemented.
 **Date:** 2026-11-09
 

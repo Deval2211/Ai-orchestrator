@@ -1,5 +1,7 @@
 # 09 — Implementation Roadmap
 
+> **Historical research (2026-11-09).** Retained for context, not the active roadmap. Current phase plans live in [`../../phases/`](../../phases/) and current requirements in [`../../specs/design_draft.md`](../../specs/design_draft.md). See [`../README.md`](../README.md).
+
 **Date:** 2026-11-09 · **Status:** proposal, awaiting approval.
 
 This replaces `phases/phase-1..6`. The six-phase plan assumed the orchestrator would build task
